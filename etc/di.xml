@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * di.xml
+ *
+ * Module- Codilar_Zipcode
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Codilar\Zipcode\Model\ResourceModel\Zipcode\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">codilar_region</argument>
+            <argument name="resourceModel" xsi:type="string">Codilar\Zipcode\Model\ResourceModel\Zipcode</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="zipcode_listing_ui_data_source" xsi:type="string">Codilar\Zipcode\Model\ResourceModel\Zipcode\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="Codilar\Zipcode\Api\ZipcodeRepositoryInterface" type="Codilar\Zipcode\Model\Api\ZipcodeRepository" />
+    <preference for="Codilar\Zipcode\Api\ZipcodesRepositoryInterface" type="Codilar\Zipcode\Model\Api\ZipcodesRepository" />
+</config>

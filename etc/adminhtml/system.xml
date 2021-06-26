@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * system.xml
+ *
+ * @license  Open Source
+ * @link     https://www.codilar.com
+ * @copyright Copyright © 2021 Codilar Technologies Pvt. Ltd.. All rights reserved
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="codilar" translate="label" sortOrder="10">
+            <label>Codilar</label>
+        </tab>
+        <section id="zipcode" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Zipcode</label>
+            <tab>codilar</tab>
+            <resource>Codilar_Zipcode::zipcode_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Module Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="regions" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Regions</label>
+                    <source_model>Codilar\Zipcode\Model\Config\Source\Regions</source_model>
+                    <comment>Regions</comment>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="success_message" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Success Message</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

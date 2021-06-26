@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * region_form_ui.xml
+ *
+ * @copyright Copyright © 2021 Codilar Technologies Pvt. Ltd.. All rights reserved.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">region_form_ui.region_form_data_source</item>
+        </item>
+        <item name="ajaxSave" xsi:type="boolean">false</item>
+        <item name="label" xsi:type="string" translate="true">General Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="Codilar\Zipcode\Block\Zipcode\BackButton"/>
+            <button name="save" class="Codilar\Zipcode\Block\Zipcode\SaveButton"/>
+        </buttons>
+        <namespace>region_form_ui</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>region_form_ui.region_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="region_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="zipcode/info/save"/>
+        </settings>
+        <aclResource>Codilar_PushNotification::pushnotify_order_template</aclResource>
+
+        <dataProvider class="Codilar\Zipcode\Model\DataProvider\Zipcode\InfoProvider" name="region_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general">
+        <settings>
+            <label/>
+        </settings>
+        <field name="region" sortOrder="27" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">name</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <label translate="true">Region Name</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <dataScope>region</dataScope>
+            </settings>
+        </field>
+        <field name="zone" sortOrder="28" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">name</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <label translate="true">Zone</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <dataScope>zone</dataScope>
+            </settings>
+        </field>
+        <field name="zipcode">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="source" xsi:type="string">zipcode</item>
+                    <item name="label" xsi:type="string" translate="true">Zipcode</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">fileUploader</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="url" path="zipcode/info/upload"/>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="isEnable" sortOrder="33" formElement="select">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <dataType>int</dataType>
+                <label translate="true">IsEnable</label>
+                <dataScope>isEnable</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+
+</form>

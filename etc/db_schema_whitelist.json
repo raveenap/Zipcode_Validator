@@ -1,0 +1,28 @@
+{
+    "codilar_region": {
+        "column": {
+            "id": true,
+            "region": true,
+            "zone": true,
+            "isEnable": true
+        },
+        "index": {
+            "CODILAR_REGION_REGION": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "codilar_region_zipcode": {
+        "column": {
+            "zipcode_id": true,
+            "region_id": true,
+            "zipcode": true,
+            "time_deliver": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "CODILAR_REGION_ZIPCODE_REGION_ID_CODILAR_REGION_ID": true
+        }
+    }
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * db_schema.xml
+ *
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="codilar_region" resource="default" engine="innodb"
+           comment="table to store regions">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="ID"/>
+        <column xsi:type="varchar" name="region" nullable="true" length="30"
+                comment="Region Name"/>
+        <column xsi:type="varchar" name="zone" nullable="true" length="30"
+                comment="Zone"/>
+        <column xsi:type="varchar" name="isEnable" nullable="true" length="30"
+                comment="status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+    <table name="codilar_region_zipcode" resource="default" engine="innodb"
+           comment="table to store zipcodes">
+        <column xsi:type="int" name="zipcode_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Zipcode ID"/>
+        <column xsi:type="int" name="region_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="region ID"/>
+        <column xsi:type="varchar" name="zipcode" nullable="false" length="30"
+                comment="Zipcode"/>
+        <column xsi:type="varchar" name="time_deliver" nullable="false" length="30"
+                comment="time to deliver"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="zipcode_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CODILAR_REGION_ZIPCODE" table="codilar_region_zipcode"
+                    column="region_id" referenceTable="codilar_region" referenceColumn="id"/>
+    </table>
+</schema>
+

@@ -1,0 +1,52 @@
+<?php
+/**
+ *  @var $block \Codilar\Zipcode\Block\Info
+ */
+?>
+<!--
+/**
+ *  Form element to be displayed in PDP
+ */
+-->
+<?php if($block->isModuleEnabled()): ?>
+<form method="post"  id="validator">
+    <fieldset style="margin: 0 ; width: 50%">
+        <div style="float: left">
+            <input type="text" id="zipcode" name="zipcode" maxlength="6" placeholder="Enter zipcode" required/>
+        </div>
+        <div >
+            	<button class="action primary" type="submit" title="Check" id="zipcode-check">
+						<span><?php echo __('Check') ?></span>
+				</button>
+        </div>
+        <div class="message"></div>
+    </fieldset>
+</form>
+    <script>
+        require(['jquery'],function(){
+            jQuery(document).ready(function() {
+                jQuery(".result").hide();
+                jQuery("#validator").submit(function(){
+
+                    var zipCode = jQuery("input[name='zipcode']").val();
+
+                    var url = "<?php echo $block->getUrl().'zipcode/result/result/' ?>";
+                    jQuery.ajax({
+                        url: url,
+                        type: "POST",
+                        data: {zipcode:zipCode},
+                        showLoader: true,
+                        cache: false,
+                        success: function(response){
+                            console.log(response.output);
+                            jQuery(".result").show();
+                            jQuery(".result").text(response.output);
+                        }
+                    });
+                    return false;
+                });
+            });
+        });
+    </script>
+<?php endif; ?>
+

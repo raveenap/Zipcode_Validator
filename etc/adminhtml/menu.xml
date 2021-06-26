@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * menu.xml
+ *
+ * @license  Open Source
+ * @link     https://www.codilar.com
+ * @copyright Copyright © 2021 Codilar Technologies Pvt. Ltd.. All rights reserved
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Codilar_Zipcode::zipcode" title="Zipcode" module="Codilar_Zipcode" sortOrder="40" resource="Codilar_Zipcode::zipcode"/>
+        <add id="Codilar_Zipcode::zipcode_list" title="Location Availability" translate="title" module="Codilar_Zipcode" sortOrder="10" parent="Codilar_Zipcode::zipcode" action="zipcode/info/index" resource="Codilar_Zipcode::zipcode"/>
+    </menu>
+</config>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * catalog_product_view.xml
+ *
+ * @copyright Copyright © 2021 Codilar Technologies Pvt. Ltd.. All rights reserved.
+ */
+-->
+<page layout="lcolumn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <body>
+        <referenceContainer name="content">
+            <referenceContainer name="product.info.main" >
+                <block class="Codilar\Zipcode\Block\Info" name="zipcode" template="Codilar_Zipcode::validator_form.phtml"/>
+            </referenceContainer>
+        </referenceContainer>
+        </body>
+</page>
