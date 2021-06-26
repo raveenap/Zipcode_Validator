@@ -3,9 +3,11 @@ namespace Codilar\Zipcode\Setup\Patch\Data;
 
 use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
 use Magento\Eav\Setup\EavSetup;
+use Magento\Catalog\Model\ResourceModel\Eav\Attribute;
 use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
+use Magento\Eav\Model\Entity\Attribute\Backend\ArrayBackend;
 /**
  * Class Vendor
  * @package Dhruvi\Vendor\Setup\Patch\Data
@@ -55,23 +57,23 @@ class ZipcodeAttribute implements DataPatchInterface {
         $eavSetup->addAttribute(\Magento\Catalog\Model\Product::ENTITY, 'region_zipcodes', [
             'group' => 'General',
             'type' => 'text',
-            'backend' => '',
-            'frontend' => '',
             'sort_order' => 210,
             'label' => 'Product Availability',
             'input' => 'multiselect',
             'class' => '',
             'source' => 'Codilar\Zipcode\Model\Config\Source\Regions',
-            'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+            'backend' => ArrayBackend::class,
+            'global' => Attribute::SCOPE_GLOBAL,
             'visible' => true,
             'required' => false,
             'user_defined' => false,
-            'default' => '',
+            'default' => '0',
             'searchable' => false,
-            'filterable' => false,
+            'filterable' => true,
             'comparable' => false,
-            'visible_on_front' => false,
-            'used_in_product_listing' => true,
+            'visible_on_front' => true,
+            'used_in_product_listing' => false,
+            'unique' => false,
             'apply_to' => ''
         ]);
     }

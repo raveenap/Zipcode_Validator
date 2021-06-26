@@ -8,9 +8,32 @@
  *  Form element to be displayed in PDP
  */
 -->
-<?php if($block->isModuleEnabled()): ?>
+<?php if($block->isModuleEnabaled()): ?>
+
+
+<style>
+    #validator fieldset {
+        border: 0;
+    }
+
+    form#validator .message {
+        margin-top: 10px;
+    }
+
+    button#zipcode-check {
+        /* border: 0; */
+        border-radius: 0px 4px 4px 0;
+    }
+
+    input#zipcode {
+        border-radius: 4px 0px 0 4px;
+    }
+</style>
+
 <form method="post"  id="validator">
     <fieldset style="margin: 0 ; width: 50%">
+        <h3> Delivery Availablity</h3>
+        <input type="hidden" id="product_id" name="product_id" maxlength="6" value="<?=$block->getProduct()->getId()?>" required/>
         <div style="float: left">
             <input type="text" id="zipcode" name="zipcode" maxlength="6" placeholder="Enter zipcode" required/>
         </div>
@@ -19,34 +42,50 @@
 						<span><?php echo __('Check') ?></span>
 				</button>
         </div>
-        <div class="message"></div>
+        <div class="message" id="message"></div>
     </fieldset>
 </form>
-    <script>
-        require(['jquery'],function(){
-            jQuery(document).ready(function() {
-                jQuery(".result").hide();
-                jQuery("#validator").submit(function(){
+<script type="text/javascript">
+require([
+	'jquery',
+	'mage/mage'
+], function ($) {
+	const zipCodeValidation  = () => {
+            var dataForm = $('#validator');
+            dataForm.mage('validation', {});
+            var dataFormMessage = $('#message');
+            dataFormMessage.removeClass('success').removeClass('error').hide();
+            var formData = new FormData();
+            formData.append('zipcode', $('#validator input[name="zipcode"]').val());
+            formData.append('product_id', $('#product_id').val());
 
-                    var zipCode = jQuery("input[name='zipcode']").val();
-
-                    var url = "<?php echo $block->getUrl().'zipcode/result/result/' ?>";
-                    jQuery.ajax({
-                        url: url,
-                        type: "POST",
-                        data: {zipcode:zipCode},
-                        showLoader: true,
-                        cache: false,
-                        success: function(response){
-                            console.log(response.output);
-                            jQuery(".result").show();
-                            jQuery(".result").text(response.output);
-                        }
-                    });
-                    return false;
-                });
+        $.ajax({
+                url: '<?php echo $this->getUrl('zipcode/result/result')?>',
+                data: formData,
+                processData: false,
+                contentType: false,
+                showLoader: true,
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    console.log('aaa', response, dataFormMessage);
+                    dataFormMessage.removeClass('success').removeClass('error').hide();
+                    dataFormMessage.addClass(response.type).html(response.message).show();
+                }
             });
-        });
-    </script>
+            return false;
+    }
+
+    function zipCodeFormSubmission(e) {
+        e.preventDefault();
+        zipCodeValidation()
+        return false;
+    }
+
+	$('zipcode-check').on('click', zipCodeValidation);
+    document.getElementById("validator").addEventListener("submit", zipCodeFormSubmission);
+
+});
+</script>
 <?php endif; ?>
 
